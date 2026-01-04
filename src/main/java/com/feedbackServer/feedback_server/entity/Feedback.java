@@ -22,6 +22,8 @@ public class Feedback {
 
     private String attachment;
 
+    private String attachmentId;
+
     private FeedBackType feedBackType;
 
     private String userId;
