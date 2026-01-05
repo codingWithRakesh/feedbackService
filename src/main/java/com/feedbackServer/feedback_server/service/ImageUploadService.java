@@ -18,6 +18,7 @@ import java.util.Map;
 @Service
 public class ImageUploadService {
 
+
     private final UrlConfig urlConfig;
 
     private final RestTemplate restTemplate = new RestTemplate();
