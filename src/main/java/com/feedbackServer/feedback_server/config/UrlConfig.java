@@ -12,4 +12,5 @@ import org.springframework.stereotype.Component;
 @Setter
 public class UrlConfig {
     private String serverUrl;
+    private String clientUrl;
 }

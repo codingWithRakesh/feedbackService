@@ -1,5 +1,6 @@
 package com.feedbackServer.feedback_server.security;
 
+import com.feedbackServer.feedback_server.config.UrlConfig;
 import com.feedbackServer.feedback_server.dto.response.LoginResponseDto;
 import com.feedbackServer.feedback_server.service.UserService;
 import jakarta.servlet.ServletException;
@@ -23,6 +24,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserService userService;
     private final ObjectMapper objectMapper;
+    private final UrlConfig urlConfig;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -31,10 +33,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String registrationId = token.getAuthorizedClientRegistrationId();
 
-        ResponseEntity<LoginResponseDto> loginResponse = userService.handleOAuth2LoginRequest(auth2User,registrationId);
+        LoginResponseDto loginResponse = userService.handleOAuth2LoginRequest(auth2User,registrationId).getBody();
 
-        response.setStatus(loginResponse.getStatusCode().value());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(loginResponse.getBody()));
+        String jwtToken = loginResponse.getJwt();
+        String redirectUrl = urlConfig.getClientUrl()+"?token=" + jwtToken;
+
+        response.sendRedirect(redirectUrl);
     }
 }

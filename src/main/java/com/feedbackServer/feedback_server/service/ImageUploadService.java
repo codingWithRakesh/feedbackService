@@ -1,6 +1,7 @@
 package com.feedbackServer.feedback_server.service;
 
 import com.feedbackServer.feedback_server.config.UrlConfig;
+import com.feedbackServer.feedback_server.security.WebSecurityConfig;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
