@@ -40,7 +40,7 @@ public class WebSecurityConfig {
             .csrf(csrfConfig -> csrfConfig.disable())
             .sessionManagement(sessionConfig -> sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**", "/oauth2/**", "/login/**").permitAll()
+                    .requestMatchers("/auth/**", "/oauth2/**", "/login/**", "/run/**").permitAll()
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
